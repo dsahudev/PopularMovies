@@ -1,0 +1,21 @@
+Index: app/src/main/java/com/android/deepaksahu/popularmovies/Utils/Movie.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/android/deepaksahu/popularmovies/Utils/Movie.java	(date 1461091777000)
++++ app/src/main/java/com/android/deepaksahu/popularmovies/Utils/Movie.java	(revision )
+@@ -68,6 +68,13 @@
+         } catch (JSONException e) {
+             e.printStackTrace();
+             Log.e(Movie.class.getName(),"Json movie detail parsing error");
++            backdropPath = new String();
++            posterPath = new String();
++            overview = new String();
++            releaseDate = new String();
++            id = new String();
++            title = new String();
++            voteAverage = new String();
+         }
+ 
+     }
