@@ -68,6 +68,13 @@ public class Movie {
         } catch (JSONException e) {
             e.printStackTrace();
             Log.e(Movie.class.getName(),"Json movie detail parsing error");
+            backdropPath = new String();
+            posterPath = new String();
+            overview = new String();
+            releaseDate = new String();
+            id = new String();
+            title = new String();
+            voteAverage = new String();
         }
 
     }
