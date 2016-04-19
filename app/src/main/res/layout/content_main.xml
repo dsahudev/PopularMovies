@@ -12,4 +12,11 @@
     tools:context="com.android.deepaksahu.popularmovies.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    </RelativeLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/content_main_recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+</RelativeLayout>
