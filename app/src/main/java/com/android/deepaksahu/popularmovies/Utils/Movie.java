@@ -10,6 +10,8 @@ import org.json.JSONObject;
  */
 public class Movie {
 
+    private static final String BASEURL = "http://image.tmdb.org/t/p/w185/";
+
     public String getPosterPath() {
         return posterPath;
     }
@@ -58,8 +60,8 @@ public class Movie {
 
     public Movie(JSONObject movieJson){
         try {
-            this.backdropPath = movieJson.getString("backdrop_path");
-            this.posterPath = movieJson.getString("poster_path");
+            this.backdropPath = BASEURL+movieJson.getString("backdrop_path");
+            this.posterPath = BASEURL+movieJson.getString("poster_path");
             this.overview = movieJson.getString("overview");
             this.releaseDate = movieJson.getString("release_date");
             this.id = movieJson.getString("id");
