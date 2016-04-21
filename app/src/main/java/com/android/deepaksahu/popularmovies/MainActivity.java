@@ -1,43 +1,21 @@
 package com.android.deepaksahu.popularmovies;
 
 import android.os.Bundle;
-import android.preference.PreferenceActivity;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.view.View;
 
-import com.android.deepaksahu.popularmovies.Adapters.MoviesAdapter;
 import com.android.deepaksahu.popularmovies.Fragments.ListMovieFragment;
-import com.android.deepaksahu.popularmovies.Utils.Movie;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity{
 
     private static final int TAG_POPULAR_MOVIE = 1;
     private static final int TAG_TOP_RATED_MOVIE = 2;
 
-    private static final String POPULARMOVIE_URL = "http://api.themoviedb.org/3/movie/popular?api_key=f2d3b9fb36380e6cb23caf1a605d8207";
-
-    private ArrayList<Movie> Movies;
 
 
     @Override
@@ -81,6 +59,7 @@ public class MainActivity extends AppCompatActivity{
         setSupportActionBar(toolbar);
 
 
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         if (fab != null) {
             fab.setOnClickListener(new View.OnClickListener() {
@@ -92,14 +71,8 @@ public class MainActivity extends AppCompatActivity{
             });
         }
 
-        networkCall();
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.content_main_recyclerview);
-        MoviesAdapter moviesAdapter = new MoviesAdapter(this,Movies);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(moviesAdapter);
+
 
 
 
@@ -111,7 +84,7 @@ public class MainActivity extends AppCompatActivity{
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
 
-        return true;
+        return false;
     }
 
     @Override
@@ -132,37 +105,5 @@ public class MainActivity extends AppCompatActivity{
     }
 
 
-    private void networkCall(){
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(POPULARMOVIE_URL, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-                    JSONArray results = response.getJSONArray("results");
-
-                    int totalItem = results.length();
-                    Movies = new ArrayList<>();
-
-                    for(int i=0;i<totalItem;i++){
-                        Movies.add(new Movie(results.getJSONObject(i)));
-                    }
-                    Toast.makeText(MainActivity.this,"successful", Toast.LENGTH_SHORT).show();
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Log.e(MainActivity.class.getName(),"network call json parsing err");
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.e(MainActivity.class.getName(), "network call err");
-            }
-        });
-
-        requestQueue.add(jsonObjectRequest);
-
-    }
 
 }
