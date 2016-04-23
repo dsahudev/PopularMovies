@@ -27,6 +27,10 @@ public class MainActivity extends AppCompatActivity{
         //check that the activity is using the layout version with the container_layout_main_activity Coordinate Layout
         if (findViewById(R.id.container_layout_main_activity)!=null) {
 
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
+
+
             // However, if we're being restored from a previous state,
             // then we don't need to do anything and should return or else
             // we could end up with overlapping fragments.
@@ -55,8 +59,6 @@ public class MainActivity extends AppCompatActivity{
 
 
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
 
 
