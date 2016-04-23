@@ -36,40 +36,33 @@ import java.util.ArrayList;
  * Created by deepaksahu on 20/04/16.
  */
 public class ListMovieFragment extends Fragment {
-
-    private Context mContext;
-    private static final String POPULARMOVIE_URL = "http://api.themoviedb.org/3/movie/popular?api_key=f2d3b9fb36380e6cb23caf1a605d8207";
-    private static final String TOPRATED_URL =   "http://api.themoviedb.org/3/movie/top_rated?api_key=f2d3b9fb36380e6cb23caf1a605d8207";
-
-    private static final int POPULARMOVIEOPTION = 1;
-    private static final int TOPRATEDOPTION = 2;
-
-    private int currentOption = 1;
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-
-        super.onCreateOptionsMenu(menu,inflater);
-
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getTitle().toString().equalsIgnoreCase("popular")){
-            currentOption = 1;
-        }else{
-            currentOption = 2;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    private ArrayList<Movie> Movies;
-
-
     public ListMovieFragment() {
     }
 
+    private enum MY_URL {
+        POPULARMOVIE(""+"http://api.themoviedb.org/3/movie/popular?api_key=f2d3b9fb36380e6cb23caf1a605d8207"+""),
+        TOPRATED("http://api.themoviedb.org/3/movie/top_rated?api_key=f2d3b9fb36380e6cb23caf1a605d8207");
+
+        String url;
+
+        private MY_URL(String url){
+            this.url = url;
+        }
+
+        @Override
+        public String toString() {
+            return url.toString();
+        }
+    }
+
+
+    private Context mContext;
+
+    private int currentOption = 1;
+
+    private View view;
+
+    RecyclerView recyclerView;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,9 +76,43 @@ public class ListMovieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //inflate the layout for this fragment
         View view = inflater.inflate(R.layout.content_main,container,false);
-        networkCall(view,POPULARMOVIE_URL);
+        this.view = view;
+        networkCall(view, String.valueOf(MY_URL.POPULARMOVIE));
         return view;
     }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu,inflater);
+        inflater.inflate(R.menu.menu_main,menu);
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.popular:
+                Movies.clear();
+
+                networkCall(view, String.valueOf(MY_URL.POPULARMOVIE));
+
+                break;
+            case R.id.toprated:
+                networkCall(view, String.valueOf(MY_URL.TOPRATED));
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private ArrayList<Movie> Movies;
+
+
+
+
+
+
+
 
     private void networkCall(final View view, String url){
         RequestQueue requestQueue = Volley.newRequestQueue(mContext);
@@ -121,8 +148,10 @@ public class ListMovieFragment extends Fragment {
 
     private void recyclerviewHandler(View view){
 
-        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.content_main_recyclerview);
-        MoviesAdapter moviesAdapter = new MoviesAdapter(mContext,Movies);
+
+        recyclerView = (RecyclerView) view.findViewById(R.id.content_main_recyclerview);
+        MoviesAdapter moviesAdapter;
+        moviesAdapter = new MoviesAdapter(mContext,Movies);
 //        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
         RecyclerView.LayoutManager gridLayoutManager;
 
@@ -138,6 +167,10 @@ public class ListMovieFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(moviesAdapter);
+
+    }
+
+    private void changeFragment(){
 
     }
 

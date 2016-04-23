@@ -5,8 +5,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.android.deepaksahu.popularmovies.Fragments.ListMovieFragment;
@@ -15,6 +13,7 @@ public class MainActivity extends AppCompatActivity{
 
     private static final int TAG_POPULAR_MOVIE = 1;
     private static final int TAG_TOP_RATED_MOVIE = 2;
+
 
 
 
@@ -81,30 +80,9 @@ public class MainActivity extends AppCompatActivity{
 
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-
-        return false;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        if(item.isChecked()){
-            item.setChecked(true);
-        }else{
-            item.setChecked(false);
-        }
 
 
-        return super.onOptionsItemSelected(item);
-    }
+
 
 
 
