@@ -5,12 +5,14 @@ import android.util.Log;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
+
 /**
  * Created by deepaksahu on 20/04/16.
  */
-public class Movie {
+public class Movie implements Serializable{
 
-    private static final String BASEURL = "http://image.tmdb.org/t/p/w185/";
+    private static final String BASEURL = "http://image.tmdb.org/t/p/w342/";
 
     public String getPosterPath() {
         return posterPath;
