@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.android.deepaksahu.popularmovies.Adapters.MoviesAdapter;
 import com.android.deepaksahu.popularmovies.MainActivity;
@@ -30,6 +32,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -62,13 +65,15 @@ public class ListMovieFragment extends Fragment {
 
     private View view;
 
+
+
     RecyclerView recyclerView;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mContext = getContext();
-
         setHasOptionsMenu(true);
+
     }
 
     @Nullable
@@ -77,7 +82,12 @@ public class ListMovieFragment extends Fragment {
         //inflate the layout for this fragment
         View view = inflater.inflate(R.layout.content_main,container,false);
         this.view = view;
-        networkCall(view, String.valueOf(MY_URL.POPULARMOVIE));
+
+        if(currentOption == 1) {
+            networkCall(view, String.valueOf(MY_URL.POPULARMOVIE));
+        }else if(currentOption == 2){
+            networkCall(view, String.valueOf(MY_URL.TOPRATED));
+        }
         return view;
     }
 
@@ -93,12 +103,15 @@ public class ListMovieFragment extends Fragment {
         switch (item.getItemId()){
             case R.id.popular:
                 Movies.clear();
-
+                item.setChecked(true);
                 networkCall(view, String.valueOf(MY_URL.POPULARMOVIE));
-
+                currentOption = 1;
                 break;
             case R.id.toprated:
+                Movies.clear();
                 networkCall(view, String.valueOf(MY_URL.TOPRATED));
+                currentOption = 2;
+                item.setChecked(true);
                 break;
         }
 
@@ -110,7 +123,15 @@ public class ListMovieFragment extends Fragment {
 
 
 
+    private void detatchFrag(){
+        FragmentManager fg = getFragmentManager();
+        Bundle args = new Bundle();
+        args.putSerializable("movie", (Serializable) Movies.get(1));
 
+        DetailMovieFragment detailMovieFragment = new DetailMovieFragment();
+
+        fg.beginTransaction().addToBackStack("parent").detach(this).add(R.id.container_layout_main_activity,new DetailMovieFragment()).commit();
+    }
 
 
 
@@ -153,6 +174,8 @@ public class ListMovieFragment extends Fragment {
         MoviesAdapter moviesAdapter;
         moviesAdapter = new MoviesAdapter(mContext,Movies);
 //        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
+
+
         RecyclerView.LayoutManager gridLayoutManager;
 
         if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
@@ -167,6 +190,24 @@ public class ListMovieFragment extends Fragment {
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(moviesAdapter);
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putString("optionselected",""+currentOption);
+        getFragmentManager().putFragment(outState,"myFragment",this);
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        String option = null;
+        if (savedInstanceState != null) {
+            option = savedInstanceState.getString("optionselected");
+            Toast.makeText(mContext,option+"",Toast.LENGTH_LONG).show();
+            currentOption = Integer.parseInt(option);
+        }
 
     }
 

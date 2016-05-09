@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+
     tools:context="com.android.deepaksahu.popularmovies.Fragments.DetailMovieFragment">
 
     <ScrollView
@@ -14,73 +15,95 @@
             android:orientation="vertical">
             <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="150sp"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20sp"
+                android:paddingTop="20sp"
                 app:cardCornerRadius="1dp"
                 app:cardBackgroundColor="#059175"
+                android:minHeight="130sp"
                 >
                 <TextView
+                    android:id="@+id/movie_title_detailView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Sample"
                     android:textSize="48sp"
                     android:textColor="@color/cardview_light_background"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center_vertical"/>
             </android.support.v7.widget.CardView>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <android.support.v7.widget.AppCompatImageView
+                android:orientation="vertical">
+                <ImageView
                     android:id="@+id/imageview_detailfragment"
-                    android:layout_width="185sp"
-                    android:layout_height="200sp"
-                    android:layout_marginLeft="10sp"
-                    android:layout_marginTop="10sp"
-                    android:background="@mipmap/ic_launcher"/>
+                    android:layout_width="match_parent"
+                    android:layout_height="250sp"
+                    android:scaleType="centerCrop"
+                    />
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="1sp"
+                    android:elevation="5sp"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginRight="5sp">
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-                    <android.support.v7.widget.AppCompatTextView
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Release Date"
+                        android:textSize="20sp"
+                        android:layout_marginTop="25sp"
+                        android:layout_marginLeft="20sp"/>
+
+                    <TextView
+                        android:id="@+id/release_date_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2015"
-                        android:textSize="40sp"
-                        android:layout_marginTop="30sp"
+                        android:textSize="30sp"
                         android:layout_marginLeft="20sp" />
-
-                    <android.support.v7.widget.AppCompatTextView
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="User Rating"
+                        android:textSize="20sp"
+                        android:layout_marginTop="25sp"
+                        android:layout_marginLeft="20sp"/>
+                    <TextView
+                        android:id="@+id/user_rating_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="120min"
-                        android:textSize="36sp"
-                        android:layout_marginTop="10sp"
+                        android:textSize="30sp"
                         android:layout_marginLeft="15sp"
                         android:textStyle="italic"/>
-                    <android.support.v7.widget.AppCompatButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mark as Favorite"/>
+
 
                 </LinearLayout>
-
+                </android.support.v7.widget.CardView>
             </LinearLayout>
-            <android.support.v7.widget.AppCompatTextView
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="There are some concepts you will need to implement in this project that are not explicitly covered in the course material. We’ve created these Webcast Videos to supplement your learning. (Note: You need to be in the G+ community to access the webcasts. "/>
-
-            <android.support.design.widget.CollapsingToolbarLayout
+                app:cardCornerRadius="1sp"
+                android:elevation="5sp"
+                android:layout_marginLeft="5sp"
+                android:layout_marginRight="5sp"
+                android:layout_marginTop="7sp"
+                android:layout_marginBottom="10sp">
+            <TextView
+                android:id="@+id/synopsis_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                >
-                <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="There are some concepts you will need to implement in this project that are not explicitly covered in the course material. We’ve created these Webcast Videos to supplement your learning. (Note: You need to be in the G+ community to access the webcasts. "/>
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-
+                android:layout_margin="5sp"/>
+            </android.support.v7.widget.CardView>
         </LinearLayout>
     </ScrollView>
 

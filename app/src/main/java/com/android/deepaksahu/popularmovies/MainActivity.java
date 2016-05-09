@@ -41,9 +41,11 @@ public class MainActivity extends AppCompatActivity{
             // Create a new Fragment to be placed in the activity layout
             ListMovieFragment listMovieFragment = new ListMovieFragment();
 
-            // In case this activity was started with special instructions from an
-            // Intent, pass the Intent's extras to the fragment as arguments
-            listMovieFragment.setArguments(getIntent().getExtras());
+//            // In case this activity was started with special instructions from an
+//            // Intent, pass the Intent's extras to the fragment as arguments
+//            listMovieFragment.setArguments(getIntent().getExtras());
+
+//            DetailMovieFragment detailMovieFragment = new DetailMovieFragment();
 
             // Add the fragment to the 'fragment_container' FrameLayout
             getSupportFragmentManager().beginTransaction()
