@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -32,7 +31,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -79,7 +77,7 @@ public class ListMovieFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //inflate the layout for this fragment
+
         View view = inflater.inflate(R.layout.content_main,container,false);
         this.view = view;
 
@@ -122,16 +120,6 @@ public class ListMovieFragment extends Fragment {
 
 
 
-
-    private void detatchFrag(){
-        FragmentManager fg = getFragmentManager();
-        Bundle args = new Bundle();
-        args.putSerializable("movie", (Serializable) Movies.get(1));
-
-        DetailMovieFragment detailMovieFragment = new DetailMovieFragment();
-
-        fg.beginTransaction().addToBackStack("parent").detach(this).add(R.id.container_layout_main_activity,new DetailMovieFragment()).commit();
-    }
 
 
 
